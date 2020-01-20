@@ -35,7 +35,15 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
    */
   public static function findIdentity($id)
   {
-    return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+    $usr = Users::findOne($id);
+    if ($usr) {
+      return new static([
+        'id' => $usr->id,
+        'username' => $usr->name,
+        'password' => $usr->password,
+      ]);
+    }
+    return null;
   }
 
   /**
@@ -60,10 +68,20 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
    */
   public static function findByUsername($username)
   {
-    $result = Users::findOne(['login' => $username]);
+
 //    self::$username = $result->name;
-    
-    var_dump(self::$users);
+    $usr = Users::findOne(['login' => $username]);
+    if ($usr) {
+      return new static([
+        'id' => $usr->id,
+        'username' => $usr->name,
+        'password' => $usr->password,
+      ]);
+    }
+    return null;
+
+
+//    var_dump(self::$users);
 
 //    var_dump($result);
 //    foreach (self::$users as $user) {
@@ -72,7 +90,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 //      }
 //    }
 //
-//    return null;
   }
 
   /**
