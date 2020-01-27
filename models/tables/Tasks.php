@@ -3,6 +3,8 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tasks".
@@ -51,6 +53,22 @@ class Tasks extends \yii\db\ActiveRecord
       'responsible_id' => 'Responsible ID',
       'deadline' => 'Deadline',
       'status_id' => 'Status ID',
+    ];
+  }
+
+  public function behaviors()
+  {
+    return [
+      [
+        'class' => TimestampBehavior::className(),
+        'attributes' => [
+          ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+          ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+        ],
+        'value' => function () {
+          return date('Y-m-d H:i:s');
+        }
+      ],
     ];
   }
 }
