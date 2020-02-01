@@ -16,12 +16,14 @@ use yii\db\ActiveRecord;
  * @property int|null $responsible_id
  * @property string|null $deadline
  * @property int|null $status_id
+ * @property string|null $deadline_month
  */
 class Tasks extends \yii\db\ActiveRecord
 {
   /**
    * {@inheritdoc}
    */
+
   public static function tableName()
   {
     return 'tasks';
@@ -35,7 +37,7 @@ class Tasks extends \yii\db\ActiveRecord
     return [
       [['title'], 'required'],
       [['creator_id', 'responsible_id', 'status_id'], 'integer'],
-      [['deadline'], 'safe'],
+      [['deadline', 'deadline_month'], 'safe'],
       [['title', 'description'], 'string', 'max' => 255],
     ];
   }

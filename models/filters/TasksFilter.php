@@ -3,6 +3,7 @@
 namespace app\models\filters;
 
 use app\models\User;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\tables\Tasks;
@@ -15,11 +16,13 @@ class TasksFilter extends Tasks
   /**
    * {@inheritdoc}
    */
+  public $deadline_month;
+
   public function rules()
   {
     return [
       [['id', 'creator_id', 'responsible_id', 'status_id'], 'integer'],
-      [['title', 'description', 'deadline'], 'safe'],
+      [['title', 'description', 'deadline', 'deadline_month'], 'safe'],
     ];
   }
 
@@ -41,8 +44,9 @@ class TasksFilter extends Tasks
    */
   public function search($params)
   {
+
     $query = Tasks::find();
-//      ->join('LEFT JOIN', 'users', 'users .id = creator_id');
+//      ->join('LEFT JOIN', 'users', 'users . id = creator_id');
     // add conditions that should always apply here
 
     $dataProvider = new ActiveDataProvider([
@@ -66,10 +70,10 @@ class TasksFilter extends Tasks
       'status_id' => $this->status_id,
 //      'login' => $this->login,
     ]);
-
     $query->andFilterWhere(['like', 'title', $this->title])
-      ->andFilterWhere(['like', 'description', $this->description]);
-
+      ->andFilterWhere(['like', 'description', $this->description])
+      ->andFilterWhere(['month(deadline)' => $this->deadline_month]);
+//    var_dump($this->deadline_month);
     return $dataProvider;
   }
 }

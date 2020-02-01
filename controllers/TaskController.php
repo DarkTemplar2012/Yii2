@@ -69,6 +69,18 @@ class TaskController extends Controller
     ]);
   }
 
+  public function actionOne($id)
+  {
+    $model = $this->findModel($id);
+    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      return $this->redirect(['one', 'id' => $model->id]);
+    }
+    return $this->render('one', [
+      'model' => $model,
+//      'user' => Users::findOne(1),
+    ]);
+  }
+
   /**
    * Creates a new Tasks model.
    * If creation is successful, the browser will be redirected to the 'view' page.

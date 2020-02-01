@@ -10,6 +10,7 @@ use yii\widgets\ListView;
 
 $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="tasks-index">
 
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <!--  --><?php //echo $this->render('_search', ['model' => $searchModel,]); ?>
+  <?php echo $this->render('_search', ['model' => $searchModel,]); ?>
   <?php ?>
   <?= ListView::widget([
     'dataProvider' => $dataProvider,
