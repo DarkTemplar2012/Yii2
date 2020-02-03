@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\AuthForm;
 use app\models\tables\Users;
+use app\models\Upload;
 use app\models\User;
 use Yii;
 use app\models\tables\Tasks;
@@ -14,6 +15,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 
 /**
@@ -63,6 +65,7 @@ class TaskController extends Controller
   public function actionView($id)
   {
 //    var_dump($model);
+
     return $this->render('view', [
       'model' => $this->findModel($id),
       'user' => Users::findOne(1),
@@ -127,7 +130,17 @@ class TaskController extends Controller
    */
   public function actionUpdate($id)
   {
+
     $model = $this->findModel($id);
+
+    $modelU = new Upload([
+
+    ]);
+
+    if ($modelU->load(\Yii::$app->request->post())) {
+      $modelU->file = UploadedFile::getInstance($modelU, 'file');
+      $model->file = $modelU->save();
+    }
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
       return $this->redirect(['view', 'id' => $model->id]);
@@ -135,6 +148,7 @@ class TaskController extends Controller
 
     return $this->render('update', [
       'model' => $model,
+      'modelU' => $modelU,
       'user' => Users::find()->all()
 
     ]);

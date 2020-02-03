@@ -2,6 +2,7 @@
 
 namespace app\models\tables;
 
+use app\models\Upload;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -21,6 +22,13 @@ use yii\db\ActiveRecord;
 class Tasks extends \yii\db\ActiveRecord
 {
   /**
+   * @var bool|string
+   */
+  /**
+   * @var bool|string
+   */
+
+  /**
    * {@inheritdoc}
    */
 
@@ -34,11 +42,12 @@ class Tasks extends \yii\db\ActiveRecord
    */
   public function rules()
   {
+//    var_dump($this->file);
     return [
       [['title'], 'required'],
       [['creator_id', 'responsible_id', 'status_id'], 'integer'],
       [['deadline', 'deadline_month'], 'safe'],
-      [['title', 'description'], 'string', 'max' => 255],
+      [['title', 'description', 'file'], 'string', 'max' => 255],
     ];
   }
 
@@ -48,13 +57,13 @@ class Tasks extends \yii\db\ActiveRecord
   public function attributeLabels()
   {
     return [
-      'id' => 'ID',
-      'title' => 'Title',
-      'description' => 'Description',
-      'creator_id' => 'Creator ID',
-      'responsible_id' => 'Responsible ID',
-      'deadline' => 'Deadline',
-      'status_id' => 'Status ID',
+      'id' => \Yii::t("appTask", "id"),
+      'title' => \Yii::t("appTask", "title"),
+      'description' => \Yii::t("appTask", "description"),
+      'creator_id' => \Yii::t("appTask", "creator_id"),
+      'responsible_id' => \Yii::t("appTask", "responsible_id"),
+      'deadline' => \Yii::t("appTask", "deadline"),
+      'status_id' => \Yii::t("appTask", "status_id"),
     ];
   }
 
@@ -71,6 +80,7 @@ class Tasks extends \yii\db\ActiveRecord
           return date('Y-m-d H:i:s');
         }
       ],
+
     ];
   }
 }
