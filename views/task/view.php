@@ -41,5 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
       'status_id',
     ],
   ]) ?>
+  <?php
+  if ($model->file) { ?>
+      <a href="uploads/<?= $model->file ?>"><img src="uploads/small/<?= $model->file ?>"></a>
+    <?
+  }
+  ?>
 
 </div>
