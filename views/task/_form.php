@@ -28,7 +28,7 @@ foreach ($user as $key => $value) {
 
   <?= $form->field($model, 'status_id')->textInput() ?>
 
-  <?= $form->field($modelU, 'file')->fileInput(); ?>
+    <!--  --><? //= $form->field($modelU, 'file')->fileInput(); ?>
 
     <div class="form-group">
       <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
