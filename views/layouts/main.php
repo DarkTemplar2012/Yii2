@@ -41,8 +41,10 @@ AppAsset::register($this);
     'items' => [
       ['label' => 'Lang',
         'items' => [
-          ['label' => 'RU', 'url' => '/index.php?r=lang&lng=ru'],
-          ['label' => 'EN', 'url' => '/index.php?r=lang&lng=en'],
+          ['label' => 'RU', 'url' => ['/lang/index', 'lng' => 'ru']],
+          ['label' => 'EN', 'url' => ['/lang/index', 'lng' => 'en']],
+//          ['label' => 'RU', 'url' => '/index.php?r=lang&lng=ru'],
+//          ['label' => 'EN', 'url' => '/index.php?r=lang&lng=en'],
 
         ],],
       ['label' => 'Home', 'url' => ['/site/index']],

@@ -60,14 +60,19 @@ $config = [
       ],
     ],
     'db' => $db,
-    /*
     'urlManager' => [
-        'enablePrettyUrl' => true,
-        'showScriptName' => false,
-        'rules' => [
-        ],
+      'enablePrettyUrl' => true,
+      'showScriptName' => false,
+      'enableStrictParsing' => true,
+      'rules' => [
+        '/' => 'site/index',
+        'task' => 'task/index',
+        'tasks/<id>' => 'task/one',
+        'tasker/<id>' => 'task/view',
+        '<controller>' => '<controller>/index',
+        '<controller>/<action>' => '<controller>/<action>',
+      ],
     ],
-    */
   ],
   'params' => $params,
 ];
