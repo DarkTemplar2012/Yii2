@@ -65,11 +65,14 @@ class TaskController extends Controller
   public function actionView($id)
   {
 //    var_dump($model);
+    if (Yii::$app->user->can('TaskView')) {
+      return $this->render('view', [
+        'model' => $this->findModel($id),
+        'user' => Users::findOne(1),
+      ]);
+    }
+    return "Access denied";
 
-    return $this->render('view', [
-      'model' => $this->findModel($id),
-      'user' => Users::findOne(1),
-    ]);
   }
 
   public function actionOne($id)
@@ -98,7 +101,7 @@ class TaskController extends Controller
           ->setTo($user->login . '@domain.com')
           ->setSubject('Тема сообщения')
           ->setTextBody('Текст сообщения')
-          ->setHtmlBody("<b>текст сообщения в формате HTML </b> ")
+          ->setHtmlBody(" < b>текст сообщения в формате HTML </b > ")
           ->send();
       }
     };
