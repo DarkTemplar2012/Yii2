@@ -4,6 +4,7 @@
 
 /* @var $content string */
 
+use app\assets\TaskAsset;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -12,6 +13,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+TaskAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
